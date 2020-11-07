@@ -24,11 +24,12 @@ namespace AdressbokenInl
         }
         static void Main(string[] args)
         {
-            List<Person> adressbok = new List<Person>();
+            List<Person> adressbook = new List<Person>();
             string command;
             Console.WriteLine("Välkommen till adressboken:");
 
             string path = "C:\\Users\\ludvi\\progmet\\adressbok.txt";
+            string pathtest = "C:\\Users\\ludvi\\progmet\\adressboktest.txt";
             string[] lines = File.ReadAllLines(@path);
             Console.WriteLine("Kontakter");
             Console.WriteLine();
@@ -37,13 +38,14 @@ namespace AdressbokenInl
                 //Console.WriteLine(line);
                 string[] word = line.Split(',');
                 //Console.WriteLine("{0} {1,-15}{2,-20}{3}", word[0], word[1], word[2], word[3]);
-                adressbok.Add(new Person(word[0], word[1], word[2], word[3]));
+                adressbook.Add(new Person(word[0], word[1], word[2], word[3]));
+                
             }
-            for (int i = 0; i < adressbok.Count; i++)
+            for (int i = 0; i < adressbook.Count; i++)
             {
-                if (adressbok[i] != null)
+                if (adressbook[i] != null)
                 {
-                    Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbok[i].name, adressbok[i].phone, adressbok[i].email, adressbok[i].adress);
+                    Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbook[i].name, adressbook[i].phone, adressbook[i].email, adressbook[i].adress);
                     Console.WriteLine("");
                 }
             }
@@ -68,29 +70,49 @@ namespace AdressbokenInl
                     string aD = Console.ReadLine();
                     Console.WriteLine();
                     Console.WriteLine($"{nM} med {pH}, {eM} på adressen {aD} har lagts till i adressboken!");
-                    adressbok.Add(new Person(nM, pH, eM, aD));
+                    adressbook.Add(new Person(nM, pH, eM, aD));
+                    
 
                 }
                 else if (command == "visa")
                 {
-                    for(int i = 0; i < adressbok.Count; i++)
+                    for(int i = 0; i < adressbook.Count; i++)
                     {
-                        Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbok[i].name, adressbok[i].phone, adressbok[i].email, adressbok[i].adress);
+                        Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbook[i].name, adressbook[i].phone, adressbook[i].email, adressbook[i].adress);
                     }
                 }
                 else if (command == "ta bort")
                 {
                     Console.Write("Vem vill du ta bort?");
                     string nM = Console.ReadLine();
-                    for (int i = 0; i < adressbok.Count(); i++)
+                    for (int i = 0; i < adressbook.Count(); i++)
                     {
-                        if (nM == adressbok[i].name)
+                        if (nM == adressbook[i].name)
                         {
-                            
                             Console.WriteLine($" {nM} togs bort");
-                            adressbok.RemoveAt(i);
+                            adressbook.RemoveAt(i);
                         }
                     }
+                }
+                else if(command == "spara")
+                {
+
+                    string[] arrayAdressbook = new string[adressbook.Count];
+                    for(int i = 0; i < adressbook.Count; i++)
+                    {
+                        arrayAdressbook[i] = adressbook[i].name + ", " + adressbook[i].phone + ", " + adressbook[i].email + ", " + adressbook[i].adress;
+                    }
+                    File.WriteAllLines(path, arrayAdressbook);
+                    //Console.WriteLine("ändringarna är nu sparade");
+
+                    // Example #1: Write an array of strings to a file.
+                    // Create a string array that consists of three lines.
+                    //string[] lines = { "First line", "Second line", "Third line" };
+                    //// WriteAllLines creates a file, writes a collection of strings to the file,
+                    //// and then closes the file.  You do NOT need to call Flush() or Close().
+                    //System.IO.File.WriteAllLines(@"C:\Users\Public\TestFolder\WriteLines.txt", lines);
+
+                    //System.IO.File.WriteAllLines("SavedLists.txt", Lists.verbList);
                 }
 
             } while(command != "avsluta");
