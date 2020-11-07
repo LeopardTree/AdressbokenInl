@@ -56,11 +56,48 @@ namespace AdressbokenInl
             {
                 Console.Write("> ");
                 command = Console.ReadLine();
+                if (command == "lägg till")
+                {
+                    Console.Write("Vem vill du lägga till? ");
+                    string nM = Console.ReadLine();
+                    Console.Write($"Vad har {nM} för telefonnummer?");
+                    string pH = Console.ReadLine();
+                    Console.Write($"Vad har {nM} för email?");
+                    string eM = Console.ReadLine();
+                    Console.Write($"Vad har {nM} för adress?");
+                    string aD = Console.ReadLine();
+                    Console.WriteLine();
+                    Console.WriteLine($"{nM} med {pH}, {eM} på adressen {aD} har lagts till i adressboken!");
+                    adressbok.Add(new Person(nM, pH, eM, aD));
 
-            } while(command != "sluta");
+                }
+                else if (command == "visa")
+                {
+                    for(int i = 0; i < adressbok.Count; i++)
+                    {
+                        Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbok[i].name, adressbok[i].phone, adressbok[i].email, adressbok[i].adress);
+                    }
+                }
+                else if (command == "ta bort")
+                {
+                    Console.Write("Vem vill du ta bort?");
+                    string nM = Console.ReadLine();
+                    for (int i = 0; i < adressbok.Count(); i++)
+                    {
+                        if (nM == adressbok[i].name)
+                        {
+                            
+                            Console.WriteLine($" {nM} togs bort");
+                            adressbok.RemoveAt(i);
+                        }
+                    }
+                }
+
+            } while(command != "avsluta");
+            
 
             //stop
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
