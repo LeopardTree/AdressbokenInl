@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace AdressbokenInl
 {
@@ -11,12 +12,11 @@ namespace AdressbokenInl
     {
         class Person
         {
-            public string forename, lastname, phone, email, adress;
+            public string name, phone, email, adress;
 
-            public Person(string fN, string lN, string pH, string eM, string aD)
+            public Person(string nM, string pH, string eM, string aD)
             {
-                forename = fN;
-                lastname = lN;
+                name = nM;
                 phone = pH;
                 email = eM;
                 adress = aD;
@@ -30,27 +30,27 @@ namespace AdressbokenInl
 
             string path = "C:\\Users\\ludvi\\progmet\\adressbok.txt";
             string[] lines = File.ReadAllLines(@path);
-            Console.WriteLine("{0,-10}{1,-20}{2,-30}{3,-40}{4,-50}",
-                                        "Förnamn", "Efternamn", "Telefon", "Email", "Adress");
-            Console.WriteLine("------------------");
+            Console.WriteLine("Kontakter");
+            Console.WriteLine();
             foreach (string line in lines)
             {
-                Console.WriteLine(line);
-                //string[] word = line.Split(', ');
-                //Console.WriteLine("{0} - {1}", word[0], word[1]);
-                //dict.Add(new DictEntry(word[0], word[1]));
+                //Console.WriteLine(line);
+                string[] word = line.Split(',');
+                //Console.WriteLine("{0} {1,-15}{2,-20}{3}", word[0], word[1], word[2], word[3]);
+                adressbok.Add(new Person(word[0], word[1], word[2], word[3]));
             }
-            //for (int i = 0; i < dict.Count; i++)
-            //{
-            //    if (dict[i] != null)
-            //    {
-            //        Console.WriteLine("{0,-10}{1,-20}", dict[i].english, dict[i].swedish);
-            //    }
-            //}
+            for (int i = 0; i < adressbok.Count; i++)
+            {
+                if (adressbok[i] != null)
+                {
+                    Console.WriteLine("{0,-15} - {1,-15} - {2,-25} - {3}", adressbok[i].name, adressbok[i].phone, adressbok[i].email, adressbok[i].adress);
+                    Console.WriteLine("");
+                }
+            }
             //Console.WriteLine("------------------");
 
             Console.WriteLine();
-            Console.WriteLine("Navigera med kommandona: lägg till, ta bort, spara, ändra och avsluta");
+            Console.WriteLine("Navigera med kommandona: lägg till, ta bort, spara, visa, ändra och avsluta");
             
             do
             {
