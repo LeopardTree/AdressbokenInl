@@ -49,10 +49,9 @@ namespace AdressbokenInl
             //}
             //Console.WriteLine("------------------");
 
-
+            Console.WriteLine();
             Console.WriteLine("Navigera med kommandona: lägg till, ta bort, spara, ändra och avsluta");
             
-
             do
             {
                 Console.Write("> ");
